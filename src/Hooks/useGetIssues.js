@@ -37,8 +37,11 @@ export const useGetIssues = (currentPage) => {
 		// `GET /repos/{owner}/{repo}/issues/{issue_number}/labels`
 		// `GET /repos/{owner}/{repo}/issues/{issue_number}/reactions`
 		// `GET /repos/{owner}/{repo}/issues/{issue_number}/timeline`
-		const response = await octokit.request(
-			`GET /repos/${owner}/${repo}/issues?page=${currentPage}`
+		// const response = await octokit.request(
+		// 	`GET /repos/${owner}/${repo}/issues?page=${currentPage}`
+		// );
+		const response = await axios.get(
+			`https://api.github.com/repos/facebook/react/issues?page=${currentPage}`
 		);
 		console.log("Response", response?.data);
 		// console.log(response.headers.link);
@@ -51,7 +54,6 @@ export const useGetIssues = (currentPage) => {
 			const url = new URL(lastPageURL);
 			let lastPage = url.searchParams.get("page");
 
-			let totalIssues = (lastPage - 1) * 30;
 			setLastPage(lastPage);
 		}
 		setIssues(response?.data);

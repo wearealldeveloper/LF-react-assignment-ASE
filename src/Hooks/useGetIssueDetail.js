@@ -25,8 +25,12 @@ export const useGetIssueDetail = (issue_number) => {
 
 	const getIssueDetail = async () => {
 		// `GET /repos/{owner}/{repo}/issues/{issue_number}`
-		const response = await octokit.request(
-			`GET /repos/${owner}/${repo}/issues/${issue_number}`
+		// const response = await octokit.request(
+		// 	`GET /repos/${owner}/${repo}/issues/${issue_number}`
+		// );
+
+		const response = await axios.get(
+			`https://api.github.com/repos/${owner}/${repo}/issues/${issue_number}`
 		);
 		console.log(`Response of issue ${issue_number} `, response?.data);
 		setIssueDetail(response?.data);
